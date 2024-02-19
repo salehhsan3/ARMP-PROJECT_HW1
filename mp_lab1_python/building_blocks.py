@@ -60,7 +60,7 @@ class Building_Blocks(object):
                         return True
 
         # arm - floor collision
-        for joint, spheres in global_sphere_coords.items():
+        for joint, spheres in global_sphere_coords.items()[1:]: #temp base always hits floor
             for sphere in spheres:
                 if sphere[2] < self.ur_params.sphere_radius[joint]:
                     return True
