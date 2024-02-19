@@ -60,7 +60,9 @@ class Building_Blocks(object):
                         return True
 
         # arm - floor collision
-        for joint, spheres in global_sphere_coords.items()[1:]: #temp base always hits floor
+        for joint, spheres in global_sphere_coords.items(): #temp base always hits floor
+            if(joint == self.ur_params.ur_links[0]):
+                continue
             for sphere in spheres:
                 if sphere[2] < self.ur_params.sphere_radius[joint]:
                     return True
@@ -72,8 +74,8 @@ class Building_Blocks(object):
         @param prev_conf - some configuration
         @param current_conf - current configuration
         '''
-        # TODO 
-        # hint: use self.is_in_collision()
+        checks_num = 3
+        return not any([self.is_in_collision(np.array(conf)) for conf in np.linspace(prev_conf,current_conf, checks_num)])
         
     
     def edge_cost(self, conf1, conf2):
