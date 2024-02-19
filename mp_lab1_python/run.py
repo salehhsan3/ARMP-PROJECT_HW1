@@ -20,10 +20,10 @@ def main():
     visualizer = Visualize_UR(ur_params, env=env, transform=transform, bb=bb)
 
     # --------- configurations-------------
-    home = np.deg2rad([-0.694, -1.376, -2.212, -1.122, 1.570, -2.26 ])
+    home = np.array([-0.694, -1.376, -2.212, -1.122, 1.570, -2.26 ])
     
     # ---------------------------------------
-    
+    print(bb.is_in_collision(home))
     visualizer.show_conf(home)
     
    
