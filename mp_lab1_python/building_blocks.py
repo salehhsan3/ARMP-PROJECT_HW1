@@ -19,12 +19,12 @@ class Building_Blocks(object):
         sample random configuration
         @param goal_conf - the goal configuration
         """
-        # TODO 
+        # DONE
         conf = []
         if random.random() < self.p_bias:
             return np.array(goal_conf)
         
-        for joint, range in self.ur_params.mechanical_limits:
+        for joint, range in self.ur_params.mechanical_limits.items():
             conf.append(random.uniform(range[0],range[1]))
         
         return np.array(conf)
