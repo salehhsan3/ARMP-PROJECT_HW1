@@ -1,6 +1,8 @@
 import numpy as np
 import random
 
+def sphere_collision(p1,p2,r1,r2):
+    return np.linalg.norm(p1-p2) > r1 + r2
 class Building_Blocks(object):
     '''
     @param resolution determines the resolution of the local planner(how many intermidiate configurations to check)
@@ -46,10 +48,17 @@ class Building_Blocks(object):
 
                 for s in spheres:
                     for s2 in other_spheres:
-                        if np.linalg.norm(s2-s) > self.ur_params.sphere_radius[joint] + self.ur_params.sphere_radius[other_joint] :
+                        if sphere_collision(s,s2,self.ur_params.sphere_radius[joint], self.ur_params.sphere_radius[other_joint]):
                             return True
         
-        # arm - obstacle collision   
+        # arm - obstacle collision  
+        for joint, spheres in global_sphere_coords.items():
+            for sphere in spheres:
+                for obstacle in self.env.obstacles:
+                    if sphere_collision(sphere,obstacle,self.ur_params.sphere_radius[joint], self.env.radius):
+                        return True
+
+        return False
         
     
     def local_planner(self, prev_conf ,current_conf) -> bool:
