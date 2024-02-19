@@ -41,14 +41,14 @@ class Building_Blocks(object):
         # hint: use self.transform.conf2sphere_coords(), self.ur_params.sphere_radius, self.env.obstacles
         global_sphere_coords = self.transform.conf2sphere_coords(conf)
         # arm - arm collision
-        for joint, spheres in global_sphere_coords.items():
-            for other_joint, other_spheres in global_sphere_coords.items():
-                if joint == other_joint:
-                    continue
 
+        for i in range(len(self.ur_params.ur_links) - 2):
+            for j in range(i+2,len(self.ur_params.ur_links)):
+                spheres = global_sphere_coords[self.ur_params.ur_links[i]]
+                other_spheres = global_sphere_coords[self.ur_params.ur_links[j]]
                 for s in spheres:
                     for s2 in other_spheres:
-                        if sphere_collision(s[0:3],s2[0:3],s[3],s2[3]) and False:
+                        if sphere_collision(s[0:3],s2[0:3],self.ur_params.sphere_radius[self.ur_params.ur_links[i]],self.ur_params.sphere_radius[self.ur_params.ur_links[j]]):
                             return True
         
         # arm - obstacle collision  
