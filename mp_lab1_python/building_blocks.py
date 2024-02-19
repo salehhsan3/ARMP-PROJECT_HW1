@@ -8,7 +8,7 @@ class Building_Blocks(object):
     @param resolution determines the resolution of the local planner(how many intermidiate configurations to check)
     @param p_bias determines the probability of the sample function to return the goal configuration
     '''
-    def __init__(self, transform, ur_params, env, resolution=0.1, p_bias=0.05):
+    def __init__(self, transform, ur_params, env, resolution=2, p_bias=0.05):
         self.transform = transform
         self.ur_params = ur_params
         self.env = env
@@ -72,10 +72,10 @@ class Building_Blocks(object):
     def local_planner(self, prev_conf ,current_conf) -> bool:
         '''check for collisions between two configurations - return True if trasition is valid
         @param prev_conf - some configuration
-        @param current_conf - current configuration
+        @param current_conf - current configuration 
         '''
-        checks_num = 3
-        return not any([self.is_in_collision(np.array(conf)) for conf in np.linspace(prev_conf,current_conf, checks_num)])
+        #TODO do bound interpolation (-10 to 350 degrees should be 0 not 180)
+        return not any([self.is_in_collision(np.array(conf)) for conf in np.linspace(prev_conf,current_conf, self.resolution)])
         
     
     def edge_cost(self, conf1, conf2):

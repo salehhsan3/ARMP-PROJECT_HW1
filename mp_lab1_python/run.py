@@ -14,7 +14,7 @@ def main():
     bb = Building_Blocks(transform=transform, 
                         ur_params=ur_params, 
                         env=env,
-                        resolution=0.1, 
+                        resolution=3, 
                         p_bias=0.05,)
     
     visualizer = Visualize_UR(ur_params, env=env, transform=transform, bb=bb)
@@ -24,7 +24,7 @@ def main():
     
     # ---------------------------------------
     #print(bb.is_in_collision(home))
-    print(bb.local_planner(np.deg2rad([80, -72, 101, -120, -90, -10]), np.deg2rad([20, -90, 90, -90, -90, -10])))
+    print(bb.local_planner(np.deg2rad([180, -72, 101, -120, -90, -10]), np.deg2rad([20, -90, 90, -90, -90, -10])))
     visualizer.show_conf(home)
     
    
