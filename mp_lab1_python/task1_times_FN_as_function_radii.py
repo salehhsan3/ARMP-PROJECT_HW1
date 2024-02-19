@@ -16,10 +16,11 @@ def main():
         transform = Transform(ur_params)
         bb = Building_Blocks(transform=transform, ur_params=ur_params, env=env, resolution=0.1, p_bias=0.03) 
         # change the path 
-        random_samples = np.load('./src/move_ur1/motion_planning_lab_python_interface/random_samples/'+'random_samples_100k.npy')
+        #random_samples = np.load('./src/move_ur1/motion_planning_lab_python_interface/random_samples/'+'random_samples_100k.npy')
         
         # TODO
         # ADD YOUR CODE HERE
+        bb.sample(None)
 
 
     fig = plt.figure()

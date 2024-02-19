@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 class Building_Blocks(object):
     '''
@@ -19,9 +20,14 @@ class Building_Blocks(object):
         @param goal_conf - the goal configuration
         """
         # TODO 
-        # hint - use self.ur_params.mechamical_limits
+        conf = []
+        if random.random() < self.p_bias:
+            return np.array(goal_conf)
         
-        # return np.array(conf)
+        for joint, range in self.ur_params.mechanical_limits:
+            conf.append(random.uniform(range[0],range[1]))
+        
+        return np.array(conf)
         
 
     def is_in_collision(self, conf) -> bool:
