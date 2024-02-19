@@ -59,6 +59,11 @@ class Building_Blocks(object):
                     if sphere_collision(sphere[0:3],obstacle,self.ur_params.sphere_radius[joint],self.env.radius):
                         return True
 
+        # arm - floor collision
+        for joint, spheres in global_sphere_coords.items():
+            for sphere in spheres:
+                if sphere[2] < self.ur_params.sphere_radius[joint]:
+                    return True
         return False
         
     
