@@ -39,6 +39,15 @@ class Building_Blocks(object):
         # hint: use self.transform.conf2sphere_coords(), self.ur_params.sphere_radius, self.env.obstacles
         global_sphere_coords = self.transform.conf2sphere_coords(conf)
         # arm - arm collision
+        for joint, spheres in global_sphere_coords.items():
+            for other_joint, other_spheres in global_sphere_coords.items():
+                if joint == other_joint:
+                    continue
+
+                for s in spheres:
+                    for s2 in other_spheres:
+                        if np.linalg.norm(s2-s) > self.ur_params.sphere_radius[joint] + self.ur_params.sphere_radius[other_joint] :
+                            return True
         
         # arm - obstacle collision   
         
