@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 def sphere_collision(p1,p2,r1,r2):
-    return np.linalg.norm(np.array(p1)-np.array(p2)) > r1 + r2
+    return np.linalg.norm(np.array(p1)-np.array(p2)) < r1 + r2
 class Building_Blocks(object):
     '''
     @param resolution determines the resolution of the local planner(how many intermidiate configurations to check)
@@ -56,7 +56,7 @@ class Building_Blocks(object):
             for sphere in spheres:
                 for obstacle in self.env.obstacles:
                     
-                    if sphere_collision(sphere[0:3],obstacle,sphere[3], self.env.radius):
+                    if sphere_collision(sphere[0:3],obstacle,self.ur_params.sphere_radius[joint],self.env.radius):
                         return True
 
         return False
