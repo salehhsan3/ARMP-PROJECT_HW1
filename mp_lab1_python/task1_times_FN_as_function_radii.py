@@ -14,9 +14,9 @@ def main():
         ur_params = UR5e_PARAMS(inflation_factor=inflation_factor)
         env = Environment(env_idx=0)
         transform = Transform(ur_params)
-        bb = Building_Blocks(transform=transform, ur_params=ur_params, env=env, resolution=2, p_bias=0.03) 
-        # change the path 
-        random_samples = np.load('C:\\Users\\paulo\\OneDrive\\Desktop\\studying\\Courses\\24W\\ARMP-PROJ-HW1\\ARMP-PROJECT_HW1\\mp_lab1_python\\random_samples\\random_samples_100k.npy')
+        bb = Building_Blocks(transform=transform, ur_params=ur_params, env=env, resolution=0.1, p_bias=0.03) 
+        # change the path accordingly!
+        random_samples = np.load( "mp_lab1_python\\random_samples\\random_samples_100k.npy" )
         
         start_time = time.time()
         amount = 0

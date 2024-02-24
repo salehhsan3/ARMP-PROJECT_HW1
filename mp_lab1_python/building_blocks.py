@@ -3,12 +3,24 @@ import random
 
 def sphere_collision(p1,p2,r1,r2):
     return np.linalg.norm(np.array(p1)-np.array(p2)) < r1 + r2
+
+def max_angle_difference(conf1, conf2):
+    max_difference = 0
+    for angle1, angle2 in zip(conf1, conf2):
+        # normalize angles to [0, 2 * np.pi] range
+        angle1, angle2 = angle1 % (2 * np.pi), angle2 % (2 * np.pi) 
+        difference = abs(angle1 - angle2)
+        # Consider the circular nature of angles
+        difference = min(difference % (2 * np.pi), (2 * np.pi - difference) % (2 * np.pi))
+        max_difference = max(max_difference, difference)
+    return max_difference
+    
 class Building_Blocks(object):
     '''
     @param resolution determines the resolution of the local planner(how many intermidiate configurations to check)
     @param p_bias determines the probability of the sample function to return the goal configuration
     '''
-    def __init__(self, transform, ur_params, env, resolution=2, p_bias=0.05):
+    def __init__(self, transform, ur_params, env, resolution=0.1, p_bias=0.05):
         self.transform = transform
         self.ur_params = ur_params
         self.env = env
@@ -43,7 +55,7 @@ class Building_Blocks(object):
         # arm - arm collision
 
         for i in range(len(self.ur_params.ur_links) - 2):
-            for j in range(i+2,len(self.ur_params.ur_links)):
+            for j in range(i+2,len(self.ur_params.ur_links)): # maybe change to (i+1) because of what was said in the group chat?
                 spheres = global_sphere_coords[self.ur_params.ur_links[i]]
                 other_spheres = global_sphere_coords[self.ur_params.ur_links[j]]
                 for s in spheres:
@@ -75,7 +87,8 @@ class Building_Blocks(object):
         @param current_conf - current configuration 
         '''
         #TODO do bound interpolation (-10 to 350 degrees should be 0 not 180)
-        return not any([self.is_in_collision(np.array(conf)) for conf in np.linspace(prev_conf,current_conf, self.resolution)])
+        number_of_configurations_to_check = max( 3, int(max_angle_difference(prev_conf, current_conf) / self.resolution) )
+        return not any([self.is_in_collision(np.array(conf)) for conf in np.linspace(prev_conf,current_conf, number_of_configurations_to_check, endpoint=True)])
         
     
     def edge_cost(self, conf1, conf2):
