@@ -87,6 +87,7 @@ class Building_Blocks(object):
         @param current_conf - current configuration 
         '''
         #TODO do bound interpolation (-10 to 350 degrees should be 0 not 180)
+        # number_of_configurations_to_check = 3
         number_of_configurations_to_check = max( 3, int(max_angle_difference(prev_conf, current_conf) / self.resolution) )
         return not any([self.is_in_collision(np.array(conf)) for conf in np.linspace(prev_conf,current_conf, number_of_configurations_to_check, endpoint=True)])
         

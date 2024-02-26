@@ -13,7 +13,7 @@ def main():
     bb = Building_Blocks(transform=transform, 
                         ur_params=ur_params, 
                         env=env,
-                        resolution=0.000001, 
+                        resolution=0.1, 
                         p_bias=0.05,)
     
     visualizer = Visualize_UR(ur_params, env=env, transform=transform, bb=bb)
@@ -50,7 +50,8 @@ def main():
     conf1 = np.deg2rad([80, -72, 101, -120, -90, -10])
     conf2 = np.deg2rad([20, -90, 90, -90, -90, -10])
     print("local planner return value: " + str(bb.local_planner(conf1, conf2)) )
-    print("number of configurations to check in local planner: " + str( max( 3, int( (np.pi / 3) / bb.resolution) ) ) ) # max_angle_diff = np.pi/3 [rad]
+    num_of_config = max( 3, int( (np.pi / 3) / bb.resolution) )
+    print("number of configurations to check in local planner: " + str( num_of_config ) )  # max_angle_diff = np.pi/3 [rad]
     
     home = conf1
     visualizer.show_conf(home)
