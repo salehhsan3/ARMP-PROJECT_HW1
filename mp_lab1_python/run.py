@@ -30,14 +30,16 @@ def main():
     #                                                                    Q = 3.1
     # collision_free_angles = np.array([0.5, -1.2, 0.8, -0.5, 1.0, 0.7])  
     # home = collision_free_angles
-    
+    # print(bb.is_in_collision(home))
     # collision_config_angles = np.array([2.0, 0.0, 9.0, 1.0, 1.0, 3.0]) 
     # home = collision_config_angles
+    # print(bb.is_in_collision(home))
     
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     #                                                                    Q = 3.2
     # floor_collision_free_angles = np.array([0.5, -1.2, 0.8, -0.5, 1.0, 0.7])  
     # home = floor_collision_free_angles
+    # print(bb.is_in_collision(home))
     
     # wall_collision_config_angles = np.array([0, -1.376, 3, -1.122, 1.570, -2.26 ]) # collides with the wall obstacle!
     # home = wall_collision_config_angles
@@ -54,6 +56,7 @@ def main():
     print("number of configurations to check in local planner: " + str( num_of_config ) )  # max_angle_diff = np.pi/3 [rad]
     
     home = conf1
+    # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     visualizer.show_conf(home)
     
    
